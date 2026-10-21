@@ -1,12 +1,25 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component, inject} from '@angular/core';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {MatToolbar} from '@angular/material/toolbar';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {ThemeService} from './services/theme-service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, MatToolbar, MatButton, MatIconButton,
+    MatIcon, MatMenu, MatMenuItem, MatMenuTrigger],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('angular-rest-api-app');
+  theme = inject(ThemeService);
+  links = [
+    {path: '/', label: 'Home'},
+    {path: '/digimon', label: 'Digimon'},
+    {path: '/dragon-ball', label: 'Dragon Ball Z'},
+    {path: '/pokemon', label: 'Pokémon'},
+    {path: '/demon-slayer', label: 'Demon Slayer'},
+  ];
 }

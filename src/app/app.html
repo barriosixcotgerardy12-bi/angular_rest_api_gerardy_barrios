@@ -1,1 +1,31 @@
-<router-outlet/>
+<mat-toolbar class="header">
+  <a class="brand" routerLink="/">
+    <mat-icon>travel_explore</mat-icon>
+    <span>Anime Explorer</span>
+  </a>
+  <span class="spacer"></span>
+
+  <nav class="links">
+    @for (l of links; track l.path) {
+      <a mat-button [routerLink]="l.path" routerLinkActive="active"
+         [routerLinkActiveOptions]="{exact: l.path === '/'}">{{ l.label }}</a>
+    }
+  </nav>
+
+  <button mat-icon-button (click)="theme.toggle()" aria-label="Cambiar tema">
+    <mat-icon>{{ theme.dark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
+
+  <button mat-icon-button class="menu-btn" [matMenuTriggerFor]="menu" aria-label="Abrir menú">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    @for (l of links; track l.path) {
+      <a mat-menu-item [routerLink]="l.path">{{ l.label }}</a>
+    }
+  </mat-menu>
+</mat-toolbar>
+
+<main>
+  <router-outlet/>
+</main>

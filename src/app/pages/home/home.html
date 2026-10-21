@@ -1,0 +1,20 @@
+<p>home works!</p>
+<section class="hero">
+  <h1>Explorador de personajes</h1>
+  <p>Elige un universo y descubre a sus personajes.</p>
+</section>
+
+<div class="grid">
+  @for (u of universes; track u.path) {
+    <a class="link" [routerLink]="u.path">
+      <mat-card appearance="outlined" class="universe">
+        <img mat-card-image [src]="u.image" [alt]="u.name">
+        <mat-card-header>
+          <mat-card-title>{{ u.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>{{ u.description }}</mat-card-content>
+        <mat-card-actions><span class="go">Explorar →</span></mat-card-actions>
+      </mat-card>
+    </a>
+  }
+</div>
