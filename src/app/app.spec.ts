@@ -18,6 +18,6 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular_rest_api_gerardy_barrios');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular-rest-api-app');
   });
 });

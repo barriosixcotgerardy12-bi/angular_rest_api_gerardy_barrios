@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular_rest_api_gerardy_barrios": {
+    "angular-rest-api-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -57,10 +57,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular_rest_api_gerardy_barrios:build:production"
+              "buildTarget": "angular-rest-api-app:build:production"
             },
             "development": {
-              "buildTarget": "angular_rest_api_gerardy_barrios:build:development"
+              "buildTarget": "angular-rest-api-app:build:development"
             }
           },
           "defaultConfiguration": "development"
