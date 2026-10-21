@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, input, output} from '@angular/core';
 import {MatCard, MatCardContent, MatCardHeader} from '@angular/material/card';
 import {CharacterModel} from '../../interfaces/character-model';
 import {NgClass} from '@angular/common';
@@ -13,4 +13,18 @@ import {CharacterCardType} from '../../enums/character-card-type';
 export class CharacterCard {
   data = input<CharacterModel>();
   type = input<CharacterCardType>(CharacterCardType.FILLED);
+
+  imageClick = output<CharacterModel>();
+  cardClick = output<CharacterModel>();
+
+  onImage(event: Event) {
+    event.stopPropagation(); // que el clic en la imagen no abra también el detalle
+    const d = this.data();
+    if (d) this.imageClick.emit(d);
+  }
+
+  onCard() {
+    const d = this.data();
+    if (d) this.cardClick.emit(d);
+  }
 }

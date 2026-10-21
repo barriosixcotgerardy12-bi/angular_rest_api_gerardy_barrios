@@ -1,14 +1,46 @@
-import {Component, inject} from '@angular/core';
+import {Component, effect, inject} from '@angular/core';
+import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatButton} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
 import {DigimonRestService} from '../../services/digimon-rest-service';
-import {JsonPipe} from "@angular/common";
+import {CharacterCard} from '../../components/character-card/character-card';
+import {ImageDialog} from '../../components/image-dialog/image-dialog';
+import {CharacterModel} from '../../interfaces/character-model';
 
 @Component({
   selector: 'app-digimon-list',
-  imports: [JsonPipe],
+  imports: [CharacterCard, MatPaginator, MatProgressSpinner, MatButton, MatIcon],
   templateUrl: './digimon-list.html',
   styleUrl: './digimon-list.css',
 })
 export class DigimonList {
+  service = inject(DigimonRestService);
+  private dialog = inject(MatDialog);
+  private router = inject(Router);
+  private snack = inject(MatSnackBar);
 
-  digimonCharacters = inject(DigimonRestService);
+  constructor() {
+    effect(() => {
+      if (this.service.dataList.error()) {
+        this.snack.open('No se pudo cargar la información de Digimon.', 'Cerrar', {duration: 4000});
+      }
+    });
+  }
+
+  onPage(e: PageEvent) {
+    this.service.pageIndex.set(e.pageIndex);
+    this.service.pageSize.set(e.pageSize);
+  }
+
+  zoom(c: CharacterModel) {
+    this.dialog.open(ImageDialog, {data: {src: c.img, name: c.name}, maxWidth: '95vw'});
+  }
+
+  openDetail(c: CharacterModel) {
+    this.router.navigate(['/digimon', c.id]);   // la ruta de detalle la creamos en el siguiente paso
+  }
 }

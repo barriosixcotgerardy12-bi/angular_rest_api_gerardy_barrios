@@ -1,12 +1,15 @@
-<mat-card class="main-container">
+<mat-card class="main-container" (click)="onCard()">
   <mat-card-header>
-    <img [ngClass]="type()==='filled'?'image-filled':'image-rounded' "
-         [src]=data()?.img
-         alt="{{data()?.name}}">
+    <button type="button" class="img-btn" (click)="onImage($event)" aria-label="Ampliar imagen">
+      <img [ngClass]="type() === 'filled' ? 'image-filled' : 'image-rounded'"
+           [src]="data()?.img"
+           alt="{{ data()?.name }}">
+    </button>
   </mat-card-header>
   <mat-card-content>
-    <h3> {{ data()?.id }} - {{ data()?.name }}</h3>
-    <p> {{ data()?.description }}</p>
+    <h3>{{ data()?.id }} - {{ data()?.name }}</h3>
+    @if (data()?.description) {
+      <p>{{ data()?.description }}</p>
+    }
   </mat-card-content>
-
 </mat-card>
