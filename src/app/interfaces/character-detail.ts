@@ -25,6 +25,17 @@ export interface DetailRelation {
   items: DetailRelationItem[];
 }
 
+export interface DetailGalleryItem {
+  name: string;
+  image?: string;
+  text?: string;
+}
+
+export interface DetailGallery {
+  title: string;
+  items: DetailGalleryItem[];
+}
+
 export interface CharacterDetail {
   id: number;
   name: string;
@@ -33,4 +44,5 @@ export interface CharacterDetail {
   fields: DetailField[];
   groups: DetailGroup[];
   relations: DetailRelation[];
+  galleries?: DetailGallery[];
 }

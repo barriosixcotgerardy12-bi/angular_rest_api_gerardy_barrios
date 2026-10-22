@@ -116,3 +116,30 @@ dd {
 @media (min-width: 800px) {
   .detail { grid-template-columns: 360px 1fr; }
 }
+
+.gallery { 
+  display: grid; 
+  gap: 12px; 
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+}
+
+.gallery-item {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: 6px; 
+  text-align: center;
+  padding: 12px; 
+  border-radius: 12px; 
+  background: var(--mat-sys-surface-container);
+}
+
+.gallery-item img { 
+  width: 100%; 
+  height: 160px; 
+  object-fit: contain; 
+}
+
+.gallery-item small { 
+  color: var(--mat-sys-on-surface-variant); line-height: 1.4; 
+}

@@ -1,12 +1,29 @@
 <p>demon-slayer-characters-list works!</p>
 
-@for (item of getDbzCharacterList(); track item.id) {
-  <app-character-card
-    [data]="item"
-    [type]="characterCardType.FILLED"
-  >
-  </app-character-card>
+<header class="head">
+  <h1>Dragon Ball Z</h1>
+  <p>Guerreros Z, villanos y aliados del Universo 7.</p>
+</header>
 
-} @empty {
-  <p>no hay elemento para mostrar</p>
+@if (service.dataList.isLoading()) {
+  <div class="center"><mat-spinner diameter="56"/></div>
+} @else if (service.dataList.error()) {
+  <div class="center">
+    <mat-icon>cloud_off</mat-icon>
+    <p>Ocurrió un error al consultar la información.</p>
+    <button mat-flat-button (click)="service.dataList.reload()">Reintentar</button>
+  </div>
+} @else {
+  <div class="grid">
+    @for (c of service.characters(); track c.id) {
+      <app-character-card [data]="c" (imageClick)="zoom($event)" (cardClick)="openDetail($event)"/>
+    }
+  </div>
 }
+
+<mat-paginator [length]="service.total()"
+               [pageIndex]="service.pageIndex()"
+               [pageSize]="service.pageSize()"
+               [pageSizeOptions]="[12, 24, 48]"
+               showFirstLastButtons
+               (page)="onPage($event)"/>
