@@ -1,0 +1,13 @@
+<p>pokemon-detail works!</p>
+
+@if (pokemon.isLoading()) {
+  <div class="center"><mat-spinner diameter="56"/></div>
+} @else if (pokemon.error()) {
+  <div class="center">
+    <mat-icon>cloud_off</mat-icon>
+    <p>Ocurrió un error al consultar la información.</p>
+    <button mat-flat-button (click)="pokemon.reload()">Reintentar</button>
+  </div>
+} @else if (detail(); as d) {
+  <app-character-detail-view [detail]="d" basePath="/pokemon"/>
+}

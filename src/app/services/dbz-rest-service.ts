@@ -11,18 +11,18 @@ export class DbzRestService {
   pageIndex = signal<number>(0);
   pageSize = signal<number>(12);
 
-  // Esta API pagina desde 1, MatPaginator desde 0: por eso se suma 1
   dataList = httpResource<DbzListResponse>(
     () => `https://dragonball-api.com/api/characters?page=${this.pageIndex() + 1}&limit=${this.pageSize()}`
   );
 
-  /** Modelo común para las tarjetas (sin descripción: en esta API es muy larga) */
-  characters = computed<CharacterModel[]>(() =>
-    (this.dataList.value()?.items ?? []).map(c => ({id: c.id, name: c.name, img: c.image}))
+    characters = computed<CharacterModel[]>(() =>
+    (this.dataList.hasValue() ? this.dataList.value().items : [])
+      .map(c => ({id: c.id, name: c.name, img: c.image}))
   );
 
-  total = computed(() => this.dataList.value()?.meta.totalItems ?? 0);
+    total = computed(() => this.dataList.hasValue() ? this.dataList.value().meta.totalItems : 0);
 
+ 
   detailUrl(id: string): string {
     return `https://dragonball-api.com/api/characters/${id}`;
   }

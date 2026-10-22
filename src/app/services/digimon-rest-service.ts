@@ -15,12 +15,12 @@ export class DigimonRestService {
     () => `https://digi-api.com/api/v1/digimon?page=${this.pageIndex()}&pageSize=${this.pageSize()}`
   );
 
-  /** La respuesta de la API se convierte al modelo común que entiende la tarjeta */
   characters = computed<CharacterModel[]>(() =>
-    (this.dataList.value()?.content ?? []).map(d => ({id: d.id, name: d.name, img: d.image}))
+    (this.dataList.hasValue() ? this.dataList.value().content : [])
+      .map(d => ({id: d.id, name: d.name, img: d.image}))
   );
 
-  total = computed(() => this.dataList.value()?.pageable.totalElements ?? 0);
+  total = computed(() => this.dataList.hasValue() ? this.dataList.value().pageable.totalElements : 0);
 
   detailUrl(id: string): string {
     return `https://digi-api.com/api/v1/digimon/${id}`;
@@ -47,7 +47,7 @@ export class DigimonRestService {
           text: s.description || undefined,
         })),
       },
-      
+
       {
         title: 'Campos',
         items: d.fields.map(f => ({name: f.field})),
@@ -70,7 +70,6 @@ export class DigimonRestService {
     };
   }
 
-  /** La API repite algunas evoluciones (ej. Sukamon); se quitan duplicados por id */
   private mapEvolutions(list: DigimonEvolution[]): DetailRelationItem[] {
     const seen = new Set<number>();
     const result: DetailRelationItem[] = [];
