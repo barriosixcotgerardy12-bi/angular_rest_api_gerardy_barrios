@@ -1,0 +1,18 @@
+<p>demon-slayer-detail works!</p>
+
+@if (resource.isLoading()) {
+  <div class="center"><mat-spinner diameter="56"/></div>
+} @else if (resource.error()) {
+  <div class="center">
+    <mat-icon>cloud_off</mat-icon>
+    <p>Ocurrió un error al consultar la información.</p>
+    <button mat-flat-button (click)="resource.reload()">Reintentar</button>
+  </div>
+} @else if (detail(); as d) {
+  <app-character-detail-view [detail]="d" basePath="/demon-slayer"/>
+} @else {
+  <div class="center">
+    <mat-icon>search_off</mat-icon>
+    <p>No se encontró información de este personaje.</p>
+  </div>
+}

@@ -7,6 +7,7 @@ import {DbzDetail} from './pages/dbz-detail/dbz-detail';
 import {PokemonList} from './pages/pokemon-list/pokemon-list';
 import {PokemonDetail} from './pages/pokemon-detail/pokemon-detail';
 import {DemonSlayerCharactersList} from './pages/demon-slayer-characters-list/demon-slayer-characters-list';
+import {DemonSlayerDetail} from './pages/demon-slayer-detail/demon-slayer-detail';
 
 export const routes: Routes = [
   {path: '', component: Home, title: 'Inicio'},
@@ -17,5 +18,6 @@ export const routes: Routes = [
   {path: 'pokemon', component: PokemonList, title: 'Pokémon'},
   {path: 'pokemon/:id', component: PokemonDetail, title: 'Detalle Pokémon'},
   {path: 'demon-slayer', component: DemonSlayerCharactersList, title: 'Demon Slayer'},
+  {path: 'demon-slayer/:id', component: DemonSlayerDetail, title: 'Detalle Demon Slayer'},
   {path: '**', redirectTo: ''},
 ];
