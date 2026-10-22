@@ -24,10 +24,7 @@
     box-shadow: var(--mat-sys-level3); 
 }
 
-img { 
-    height: 180px; 
-    object-fit: cover; 
-}
+img { height: 200px; object-fit: contain; padding: 12px; background: var(--mat-sys-surface-container); }
 
 .go { 
     color: var(--mat-sys-primary); 
