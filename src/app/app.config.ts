@@ -1,15 +1,14 @@
 import {ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection} from '@angular/core';
-import {provideRouter} from '@angular/router';
-
 import {routes} from './app.routes';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
-import {delay} from 'rxjs';
+import {provideRouter, withComponentInputBinding} from '@angular/router';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({eventCoalescing: true}),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(
       /*
       withInterceptors([
@@ -23,3 +22,4 @@ export const appConfig: ApplicationConfig = {
     )
   ]
 };
+

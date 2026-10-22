@@ -1,0 +1,68 @@
+<p>character-detail-view works!</p>
+
+<button mat-button (click)="back()">
+  <mat-icon>arrow_back</mat-icon> Volver
+</button>
+
+<article class="detail">
+  @if (detail().image) {
+    <button type="button" class="img" (click)="zoom()" aria-label="Ampliar imagen">
+      <img [src]="detail().image" [alt]="detail().name">
+    </button>
+  }
+
+  <div class="info">
+    <span class="id">#{{ detail().id }}</span>
+    <h1>{{ detail().name }}</h1>
+
+    @if (detail().description) {
+      <p class="desc">{{ detail().description }}</p>
+    }
+
+    @if (detail().fields.length) {
+      <dl class="fields">
+        @for (f of detail().fields; track f.label) {
+          <div>
+            <dt>{{ f.label }}</dt>
+            <dd>{{ f.value }}</dd>
+          </div>
+        }
+      </dl>
+    }
+
+    @for (g of detail().groups; track g.title) {
+      <section>
+        <h2>{{ g.title }}</h2>
+        <ul class="list">
+          @for (i of g.items; track $index) {
+            <li>
+              <strong>{{ i.name }}</strong>
+              @if (i.text) {
+                <span> — {{ i.text }}</span>
+              }
+            </li>
+          }
+        </ul>
+      </section>
+    }
+  </div>
+</article>
+
+@for (r of detail().relations; track r.title) {
+  <section class="relations">
+    <h2>{{ r.title }}</h2>
+    <div class="strip">
+      @for (i of r.items; track i.id) {
+        <a class="rel" [routerLink]="[basePath(), i.id]">
+          @if (i.image) {
+            <img [src]="i.image" [alt]="i.name" loading="lazy">
+          }
+          <span class="rel-name">{{ i.name }}</span>
+          @if (i.condition) {
+            <small>{{ i.condition }}</small>
+          }
+        </a>
+      }
+    </div>
+  </section>
+}
